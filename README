@@ -11,6 +11,7 @@ Configuration options for this script include:
 				For example, '#news &twitter #shorturls'
 				If this variable is left undefined, all
 				channels are searched for shortened URLs.
+				To reset, use /set -clear expand_url_white
 
 I'm not sure that expand_url_white is really needed.
 

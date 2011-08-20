@@ -39,51 +39,44 @@ $ua->timeout(15);
 # consolidate them.
 sub message_public {
 	my ($server, $msg, $nick, $address, $target) = @_;
-	my $new_msg;
 
 	if (whitelisted($target)) {
-		$new_msg = message($msg);
-	} else {
-		$new_msg = $msg;
-	}
+		my $new_msg = message($msg);
 
-	Irssi::signal_continue($server, $new_msg, $nick, $address, $target);
+		Irssi::signal_continue($server, $new_msg, $nick, $address,
+			$target);
+	}
 }
 sub message_private {
 	my ($server, $msg, $nick, $address) = @_;
-	my $new_msg;
 
 	if (Irssi::settings_get_bool('expand_url_privmsgs')) {
-		$new_msg = message($msg);
-	} else {
-		$new_msg = $msg;
-	}
+		my $new_msg = message($msg);
 
-	Irssi::signal_continue($server, $new_msg, $nick, $address);
+		Irssi::signal_continue($server, $new_msg, $nick, $address);
+	}
 }
 sub message_topic {
 	my ($server, $channel, $topic, $nick, $address) = @_;
-	my $new_topic;
 
 	if (whitelisted($channel)) {
-		$new_topic = message($topic);
-	} else {
-		$new_topic = $topic;
-	}
+		my $new_topic;
 
-	Irssi::signal_continue($server, $channel, $new_topic, $nick, $address);
+		$new_topic = message($topic);
+		Irssi::signal_continue($server, $channel, $new_topic, $nick,
+			$address);
+	}
 }
 sub message_part {
 	my ($server, $channel, $nick, $address, $reason) = @_;
-	my $new_reason;
 
 	if (whitelisted($channel)) {
-		$new_reason = message($reason);
-	} else {
-		$new_reason = $reason;
-	}
+		my $new_reason;
 
-	Irssi::signal_continue($server, $channel, $nick, $address, $new_reason);
+		$new_reason = message($reason);
+		Irssi::signal_continue($server, $channel, $nick, $address,
+			$new_reason);
+	}
 }
 sub message_quit {
 	my ($server, $nick, $address, $reason);
@@ -99,7 +92,7 @@ sub whitelisted {
 
 	# If our whitelist is undefined, we assume all channels are
 	# acceptable.
-	if ($whitelist eq undef) {
+	if ($whitelist eq undef) eq 0) {
 		return 1;
 	}
 
