@@ -17,14 +17,14 @@ use vars qw($VERSION %IRSSI);
 # TODO If you have any ideas, send 'em in!
 # Is a whitelist necessary?
 
-$VERSION = '0.2';
+$VERSION = '1.0';
 %IRSSI = (
     authors     => 'Jared Candelaria',
     contact     => 'jcande@github',
     name        => 'Expand URL',
     description => 'Expand shortened URLs into something readable.',
     license     => 'BSD',
-    url         => 'http://',
+    url         => 'https://github.com/jcande/Expand-URLs/',
     changed     => '2011-08-14',
 );
 
@@ -32,9 +32,11 @@ Irssi::settings_add_bool('expand_url', 'expand_url_privmsgs', 1);
 Irssi::settings_add_str('expand_url', 'expand_url_white', undef);
 
 my $ua = LWP::UserAgent->new;
-$ua->agent("Expand URL irssi script () ");
+$ua->agent("Expand URL irssi script (https://github.com/jcande/Expand-URLs/) ");
 $ua->timeout(15);
 
+# All of these functions are pretty much the same. There must be a way to
+# consolidate them.
 sub message_public {
 	my ($server, $msg, $nick, $address, $target) = @_;
 	my $new_msg;
