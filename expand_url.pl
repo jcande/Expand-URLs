@@ -78,7 +78,7 @@ sub message_part {
 	}
 }
 sub message_quit {
-	my ($server, $nick, $address, $reason);
+	my ($server, $nick, $address, $reason) = @_;
 	# We expand quit messages and have no knob to tell us not to.
 	my $new_reason = message($reason);
 
