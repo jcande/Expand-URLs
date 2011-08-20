@@ -7,7 +7,6 @@
 #   This is undefined by default.
 
 use Irssi;
-use Irssi::TextUI;
 use strict;
 use LWP;
 use LWP::UserAgent;
@@ -92,7 +91,7 @@ sub whitelisted {
 
 	# If our whitelist is undefined, we assume all channels are
 	# acceptable.
-	if ($whitelist eq undef) eq 0) {
+	if ($whitelist eq undef) {
 		return 1;
 	}
 
@@ -123,16 +122,22 @@ sub parse {
 	return uri_unescape($URL);
 }
 
-sub expand {
+sub outsource {
 	my $longurl = 'http://api.longurl.org/v2/expand?format=json&url=';
+	my ($URL) = @_;
 
+	my $req = HTTP::Request->new('GET');
+	$req->url($longurl . $URL);
+
+	return $ua->request($req);
+}
+
+# Percent encode $URL, call longurl, parse output, return parsed
+sub expand {
 	my ($URL) = @_;
 	my $enc = uri_escape($URL);
 
-	my $req = HTTP::Request->new('GET');
-	$req->url($longurl . $enc);
-
-	my $response = $ua->request($req);
+	my $response = outsource($enc);
 
 	# We've got an error. Return the original URL.
 	if ($response->code != 200) {
@@ -140,7 +145,6 @@ sub expand {
 	}
 
 	return parse($response->content);
-	# Percent encode $URL, call longurl, parse output, return parsed
 }
 
 # This is where the magic happens.
