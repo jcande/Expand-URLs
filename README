@@ -15,6 +15,10 @@ Configuration options for this script include:
 
 I'm not sure that expand_url_white is really needed.
 
+Some limitations in the script is that URLs must be sorrounded by whitetext
+ONLY. A URL inside of quotes (e.g., "http://google.com") will NOT be parsed. If
+you have any ideas on a way to overcome this, I'd love to hear it!
+
 If you find any bugs, having any suggestions, or just want to chat,
 hit me up!
 
