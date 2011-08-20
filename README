@@ -7,7 +7,7 @@ Configuration options for this script include:
 	expand_url_privmsgs	- A boolean which toggles whether private
 				messages are searched or not.
 	expand_url_white	- A string of whitespace delimited
-				channels in which expanded is to take place.
+				channels in which expansion is to take place.
 				For example, '#news &twitter #shorturls'
 				If this variable is left undefined, all
 				channels are searched for shortened URLs.
@@ -16,5 +16,8 @@ I'm not sure that expand_url_white is really needed.
 
 If you find any bugs, having any suggestions, or just want to chat,
 hit me up!
+
+By the way, this is my first time writing perl and using github which might
+explain any odd ideas.
 
 Have fun, and hope you like it.
